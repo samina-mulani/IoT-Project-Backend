@@ -50,8 +50,8 @@ def registerDevice():
         deviceName = 'N/A'
     if deviceAddress is None or ownerName is None or ownerNumber is None or ownerEmail is None or timestamp is None or latitude is None or longitude is None:
         return json.dumps({"msg": "All required info not present"}), 400
-    newRegisteredDevice = RegistrationInfo(deviceAddres, deviceName, ownerName, ownerNumber, ownerEmail, timestamp)
-    newLocationUpdate = LocationUpdates(deviceAddres, deviceName, ownerName, ownerNumber, ownerEmail, timestamp, latitude, longitude)
+    newRegisteredDevice = RegistrationInfo(deviceAddress, deviceName, ownerName, ownerNumber, ownerEmail, timestamp)
+    newLocationUpdate = LocationUpdates(deviceAddress, deviceName, ownerName, ownerNumber, ownerEmail, timestamp, latitude, longitude)
     RegistrationInfo.insert(newRegisteredDevice)
     LocationUpdates.insert(newLocationUpdate)
     return json.dumps({"msg": "Success"}), 200
@@ -70,7 +70,7 @@ def sendLocationUpdate():
         deviceName = 'N/A'
     if deviceAddress is None or updaterName is None or updaterNumber is None or updaterEmail is None or timestamp is None or latitude is None or longitude is None:
         return json.dumps({"msg": "All required info not present"}), 400
-    newLocationUpdate = LocationUpdates(deviceAddres, deviceName, updaterName, updaterNumber, updaterEmail, timestamp, latitude, longitude)
+    newLocationUpdate = LocationUpdates(deviceAddress, deviceName, updaterName, updaterNumber, updaterEmail, timestamp, latitude, longitude)
     LocationUpdates.insert(newLocationUpdate)
     return json.dumps({"msg": "Success"}), 200
 
@@ -95,3 +95,10 @@ def getLocation():
     return json.dumps(response), 200
 
     #get global list of devices
+@app.route('/getListRegistered', methods=['GET'])
+def getList():
+    devices = RegistrationInfo.query.all()
+    myList = []
+    for device in devices:
+        myList.append(device.deviceAddress)
+    return json.dumps({"list": myList}), 200

@@ -37,8 +37,8 @@ class RegistrationInfo(db.Model):
     ownerEmail = Column(String, nullable=False)
     timestamp = Column(Integer, nullable=False)
 
-    def __init__(self, deviceAddres, deviceName, ownerName, ownerNumber, ownerEmail, timestamp):
-        self.deviceAddres = deviceAddres
+    def __init__(self, deviceAddress, deviceName, ownerName, ownerNumber, ownerEmail, timestamp):
+        self.deviceAddress = deviceAddress
         self.deviceName = deviceName
         self.ownerName = ownerName
         self.ownerNumber = ownerNumber
@@ -65,7 +65,7 @@ class RegistrationInfo(db.Model):
 class LocationUpdates(db.Model):
     __tablename__ = 'location_updates'
     pk = Column(Integer, primary_key=True)
-    deviceAddres = Column(String)
+    deviceAddress = Column(String)
     deviceName = Column(String, nullable=True)
     updaterName = Column(String, nullable=False)
     updaterNumber = Column(String, nullable=False)
@@ -74,8 +74,8 @@ class LocationUpdates(db.Model):
     latitude = Column(String, nullable=False)
     longitude = Column(String, nullable=False)
 
-    def __init__(self, deviceAddres, deviceName, updaterName, updaterNumber, updaterEmail, timestamp, latitude, longitude):
-        self.deviceAddres = deviceAddres
+    def __init__(self, deviceAddress, deviceName, updaterName, updaterNumber, updaterEmail, timestamp, latitude, longitude):
+        self.deviceAddress = deviceAddress
         self.deviceName = deviceName
         self.updaterName = updaterName
         self.updaterNumber = updaterNumber
