@@ -18,7 +18,7 @@ else:
     app.config.from_object("config.DevelopmentConfig")
 
 setup_db(app)
-db_drop_and_create_all()
+# db_drop_and_create_all()
 
 @app.route('/viewRegisteredDevices', methods=['GET'])
 def getRegisteredDevices():
