@@ -36,17 +36,28 @@ def getLocationUpdates():
         lcndict[idx] = LocationUpdates.columns_to_dict(lcn)
     return jsonify(lcndict), 200
 
+# Sample object
+# {
+#   "deviceAddress": "C:54:91:88:C9:E3",
+#   "deviceName": "Sample device",
+#   "ownerName": "Samina",
+#   "ownerNumber": "8792852130",
+#   "ownerEmail": "samina00@gmail.com",
+#   "timestamp": "1638453",
+#   "latitude": "28.3802",
+#   "longitude": "75.6092"
+# }
 @app.route('/registerDevice', methods=['POST'])
 def registerDevice():
     jsonData = request.json
-    deviceAddress = request.args.get('deviceAddress')
-    deviceName = request.args.get('deviceName')
-    ownerName = request.args.get('ownerName')
-    ownerNumber = request.args.get('ownerNumber')
-    ownerEmail = request.args.get('ownerEmail')
-    timestamp = request.args.get('timestamp')
-    latitude = request.args.get('latitude')
-    longitude = request.args.get('longitude')
+    deviceAddress = request.json['deviceAddress']
+    deviceName = request.json['deviceName']
+    ownerName = request.json['ownerName']
+    ownerNumber = request.json['ownerNumber']
+    ownerEmail = request.json['ownerEmail']
+    timestamp = request.json['timestamp']
+    latitude = request.json['latitude']
+    longitude = request.json['longitude']
     if deviceName is None or not deviceName:
         deviceName = 'N/A'
     if deviceAddress is None or ownerName is None or ownerNumber is None or ownerEmail is None or timestamp is None or latitude is None or longitude is None:
