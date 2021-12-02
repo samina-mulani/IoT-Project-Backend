@@ -7,6 +7,7 @@ from flask import Flask, request, jsonify
 from sqlalchemy.sql.functions import user
 from models import RegistrationInfo, setup_db, LocationUpdates, db_drop_and_create_all
 import json
+from sqlalchemy import desc
 
 # import urllib
 
@@ -70,14 +71,14 @@ def registerDevice():
 
 @app.route('/sendLocationUpdate', methods=['POST'])
 def sendLocationUpdate():
-    deviceAddress = request.args.get('deviceAddress')
-    deviceName = request.args.get('deviceName')
-    updaterName = request.args.get('updaterName')
-    updaterNumber = request.args.get('updaterNumber')
-    updaterEmail = request.args.get('updaterEmail')
-    timestamp = request.args.get('timestamp')
-    latitude = request.args.get('latitude')
-    longitude = request.args.get('longitude')
+    deviceAddress = request.json['deviceAddress']
+    deviceName = request.json['deviceName']
+    updaterName = request.json['updaterName']
+    updaterNumber = request.json['updaterNumber']
+    updaterEmail = request.json['updaterEmail']
+    timestamp = request.json['timestamp']
+    latitude = request.json['latitude']
+    longitude = request.json['longitude']
     if deviceName is None or not deviceName:
         deviceName = 'N/A'
     if deviceAddress is None or updaterName is None or updaterNumber is None or updaterEmail is None or timestamp is None or latitude is None or longitude is None:
