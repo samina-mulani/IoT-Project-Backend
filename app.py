@@ -6,6 +6,7 @@ import random
 from flask import Flask, request, jsonify
 from sqlalchemy.sql.functions import user
 from models import RegistrationInfo, setup_db, LocationUpdates, db_drop_and_create_all
+import json
 
 # import urllib
 
@@ -94,7 +95,6 @@ def getLocation():
     }
     return json.dumps(response), 200
 
-    #get global list of devices
 @app.route('/getListRegistered', methods=['GET'])
 def getList():
     devices = RegistrationInfo.query.all()
