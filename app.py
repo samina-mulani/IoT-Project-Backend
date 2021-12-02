@@ -55,6 +55,7 @@ def registerDevice():
     ownerNumber = request.json['ownerNumber']
     ownerEmail = request.json['ownerEmail']
     timestamp = request.json['timestamp']
+    timestamp = int(timestamp)
     latitude = request.json['latitude']
     longitude = request.json['longitude']
     if deviceName is None or not deviceName:
@@ -75,6 +76,7 @@ def sendLocationUpdate():
     updaterNumber = request.json['updaterNumber']
     updaterEmail = request.json['updaterEmail']
     timestamp = request.json['timestamp']
+    timestamp = int(timestamp)
     latitude = request.json['latitude']
     longitude = request.json['longitude']
     if deviceName is None or not deviceName:
@@ -88,7 +90,11 @@ def sendLocationUpdate():
 @app.route('/getLocation',methods=['GET'])
 def getLocation():
     deviceAddress = request.args.get('deviceAddress')
+    
+    if deviceAddress is None:
+        return json.dumps({"msg":"All required info not present"}), 400
     deviceInfo = RegistrationInfo.query.filter_by(deviceAddress=deviceAddress).first()
+
     recentLocationUpdate = LocationUpdates.query.filter_by(deviceAddress=deviceAddress).order_by(desc(LocationUpdates.timestamp)).first()
     
     if deviceInfo is None or recentLocationUpdate is None:
@@ -101,7 +107,7 @@ def getLocation():
     "updaterName": recentLocationUpdate.updaterName,
     "updaterEmail": recentLocationUpdate.updaterEmail,
     "updaterNumber": recentLocationUpdate.updaterNumber,
-    "timestamp": recentLocationUpdate.timestamp
+    "timestamp": str(recentLocationUpdate.timestamp)
     }
     return json.dumps(response), 200
 
