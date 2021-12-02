@@ -65,7 +65,7 @@ class RegistrationInfo(db.Model):
 class LocationUpdates(db.Model):
     __tablename__ = 'location_updates'
     pk = Column(Integer, primary_key=True)
-    deviceAddress = Column(String)
+    deviceAddress = Column(String, nullable=False)
     deviceName = Column(String, nullable=True)
     updaterName = Column(String, nullable=False)
     updaterNumber = Column(String, nullable=False)
