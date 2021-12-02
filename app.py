@@ -89,7 +89,7 @@ def sendLocationUpdate():
 def getLocation():
     deviceAddress = request.args.get('deviceAddress')
     deviceInfo = RegistrationInfo.query.filter_by(deviceAddress=deviceAddress).first()
-    recentLocationUpdate = LocationUpdates.query.filter_by(deviceAddress=deviceAddress).order_by(desc(LocationUpdates.timestamp))
+    recentLocationUpdate = LocationUpdates.query.filter_by(deviceAddress=deviceAddress).order_by(desc(LocationUpdates.timestamp)).first()
     
     if deviceInfo is None or recentLocationUpdate is None:
         return json.dumps({"msg": "No device or location present in database"}), 500
