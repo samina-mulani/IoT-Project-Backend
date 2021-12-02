@@ -1,5 +1,3 @@
-# app.py
-
 # Required imports
 import os
 import random
