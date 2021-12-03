@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta name="viewport" content="width=device-width, initial-scale=1.0"> 
+	<title>Global Device List</title>
+</head>
+<body>
+	<table border="1">
+		<tr>
+			<th>Device Address</th>
+			<th>Device Name</th>
+			<th>Owner Details</th>
+			<th>Time of Registration</th>
+			<th>Time Last Seen</th>
+			<th>Location Last Seen</th>
+			<th>Last Updater Details</th>
+		</tr>
+	{% for device, lcn in devices %}
+	<tr>
+		<td>{{device.deviceAddress}}</td>
+		<td>{{device.deviceName}}</td>
+		<td>{{device.ownerName}}<br>{{device.ownerEmail}}<br>{{device.ownerNumber}}</td>
+		<td>{{device.timestamp|format_timestamp}}</td>
+		<td>{{lcn.timestamp|format_timestamp}}</td>
+		<td>{{lcn.latitude}}, {{lcn.longitude}}</td>
+		<td>{{lcn.updaterName}}<br>{{lcn.updaterEmail}}<br>{{lcn.updaterNumber}}</td>
+	</tr>
+	{% endfor %}
+	</table>
+</body>
+</html>

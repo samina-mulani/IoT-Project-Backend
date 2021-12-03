@@ -1,11 +1,13 @@
 # Required imports
 import os
 import random
-from flask import Flask, request, jsonify
+from flask import Flask, request, jsonify, render_template
 from sqlalchemy.sql.functions import user
 from models import RegistrationInfo, setup_db, LocationUpdates, db_drop_and_create_all
 import json
 from sqlalchemy import desc
+
+from datetime import datetime
 
 # import urllib
 
@@ -18,6 +20,24 @@ else:
 
 setup_db(app)
 # db_drop_and_create_all()
+
+@app.route('/',methods=['GET'])
+def mainPage():
+    devices = RegistrationInfo.query.all()
+    devicelist = []
+    lcnlist = []
+    for idx,device in enumerate(devices):
+        devicelist.append(RegistrationInfo.columns_to_dict(device))
+        recentLocationUpdate = LocationUpdates.query.filter_by(deviceAddress=device.deviceAddress).order_by(desc(LocationUpdates.timestamp)).first()
+        lcnlist.append(LocationUpdates.columns_to_dict(recentLocationUpdate))
+    print(devicelist, lcnlist)
+    info = zip(devicelist,lcnlist)
+    return render_template('index.html', devices = info)
+
+@app.template_filter()
+def format_timestamp(timestamp):
+    date_time = datetime.fromtimestamp(timestamp)
+    return date_time.strftime("%d/%m/%Y, %H:%M:%S")   
 
 @app.route('/viewRegisteredDevices', methods=['GET'])
 def getRegisteredDevices():
