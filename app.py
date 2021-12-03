@@ -138,3 +138,12 @@ def getList():
     for device in devices:
         myList.append(device.deviceAddress)
     return json.dumps({"list": myList}), 200
+
+@app.route('/deleteAll', methods=['GET'])
+def deleteAll():
+    devices = RegistrationInfo.query.all()
+    for device in enumerate(devices):
+        RegistrationInfo.delete(device)
+    lcnUpdates = LocationUpdates.query.all()
+    for update in enumerate(lcnUpdates):
+        LocationUpdates.delete(update)
