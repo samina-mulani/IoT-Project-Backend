@@ -148,3 +148,4 @@ def deleteAll():
     lcnUpdates = LocationUpdates.query.filter_by(deviceAddress=deviceAddress)
     for idx,update in enumerate(lcnUpdates):
         LocationUpdates.delete(update)
+    return "Success", 200
