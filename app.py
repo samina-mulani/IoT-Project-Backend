@@ -6,10 +6,14 @@ from sqlalchemy.sql.functions import user
 from models import RegistrationInfo, setup_db, LocationUpdates, db_drop_and_create_all
 import json
 from sqlalchemy import desc
-
+from dateutil import tz
+import pytz
+import httpx
 from datetime import datetime
 
 # import urllib
+
+ist = pytz.timezone("Asia/Kolkata")
 
 # Initialize Flask app
 app = Flask(__name__)
@@ -30,13 +34,20 @@ def mainPage():
         devicelist.append(RegistrationInfo.columns_to_dict(device))
         recentLocationUpdate = LocationUpdates.query.filter_by(deviceAddress=device.deviceAddress).order_by(desc(LocationUpdates.timestamp)).first()
         lcnlist.append(LocationUpdates.columns_to_dict(recentLocationUpdate))
+        r = httpx.get('https://nominatim.openstreetmap.org/reverse?lat='+recentLocationUpdate.latitude+"&lon="+recentLocationUpdate.longitude+'&format=jsonv2')
+        print('https://nominatim.openstreetmap.org/reverse?lat='+recentLocationUpdate.latitude+"&lon="+recentLocationUpdate.longitude+'&format=jsonv2')
+        lcnlist[idx]["readable_lcn"] = json.loads(r.text)["display_name"]
     info = zip(devicelist,lcnlist)
     return render_template('index.html', devices = info)
 
 @app.template_filter()
 def format_timestamp(timestamp):
-    date_time = datetime.fromtimestamp(timestamp)
+    date_time = datetime.fromtimestamp(timestamp, ist)
     return date_time.strftime("%d/%m/%Y, %H:%M:%S")   
+
+@app.template_filter()
+def round_float(val):
+    return format(float(val),'0.2f')
 
 @app.route('/viewRegisteredDevices', methods=['GET'])
 def getRegisteredDevices():

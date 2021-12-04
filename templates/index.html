@@ -61,7 +61,7 @@ tr:hover:first-child{background: #30323D; color: white;}
 		<td>{{device.ownerName}}<br>{{device.ownerEmail}}<br>{{device.ownerNumber}}</td>
 		<td>{{device.timestamp|format_timestamp}}</td>
 		<td>{{lcn.timestamp|format_timestamp}}</td>
-		<td>{{lcn.latitude}}, {{lcn.longitude}}</td>
+		<td>{{lcn.latitude|round_float}}, {{lcn.longitude|round_float}}<br>{{lcn.readable_lcn}}</td>
 		<td>{{lcn.updaterName}}<br>{{lcn.updaterEmail}}<br>{{lcn.updaterNumber}}</td>
 	</tr>
 	{% endfor %}
