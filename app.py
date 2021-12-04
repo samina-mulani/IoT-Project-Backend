@@ -145,5 +145,5 @@ def deleteAll():
     device = RegistrationInfo.query.filter_by(deviceAddress=deviceAddress).first();
     RegistrationInfo.delete(device)
     lcnUpdates = LocationUpdates.query.filter_by(deviceAddress=deviceAddress)
-    for update in enumerate(lcnUpdates):
+    for idx,update in enumerate(lcnUpdates):
         LocationUpdates.delete(update)
