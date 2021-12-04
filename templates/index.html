@@ -3,16 +3,48 @@
 <head>
 	<meta name="viewport" content="width=device-width, initial-scale=1.0"> 
 	<title>Global Device List</title>
+	<!-- Google Fonts -->
+	<link rel="preconnect" href="https://fonts.googleapis.com">
+	<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+	<link href="https://fonts.googleapis.com/css2?family=Oswald:wght@300&display=swap" rel="stylesheet">
+	<link href="https://fonts.googleapis.com/css2?family=Oswald:wght@300&family=Readex+Pro:wght@300&display=swap" rel="stylesheet">
+
 </head>
 <style>
-	.center {
+body{
+	background-color: #293462;
+	color: white;
+}
+h1{
+	font-family: 'Readex Pro', sans-serif;
+	font-size: 2.5em;
+	text-align: center;
+}
+.center {
   margin-left: auto;
   margin-right: auto;
 }
+table{
+	border-collapse: collapse;	
+	font-family: 'Oswald', sans-serif;
+	font-size: 1.2em;
+	border: 1px solid white;
+	width: 90%;
+}
+th,td{
+	padding: 10px;
+}
+tr:nth-child(even) {background: #E4DFDA; color: #463F3A}
+tr:hover:nth-child(even){background: #EEE;}
+tr:nth-child(odd) {background: #DA627D; color: #463F3A}
+tr:hover:nth-child(odd) {background: #CE4257;}
+tr:first-child{background: #30323D; color: white;}
+tr:hover:first-child{background: #30323D; color: white;}
+
 </style>
 <body>
-	<h1> Buzz tag </h1>
-	<table border="1" class="center">
+	<h1> BUZZ TAG </h1>
+	<table class="center">
 		<tr>
 			<th>Device Address</th>
 			<th>Device Name</th>

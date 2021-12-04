@@ -30,7 +30,6 @@ def mainPage():
         devicelist.append(RegistrationInfo.columns_to_dict(device))
         recentLocationUpdate = LocationUpdates.query.filter_by(deviceAddress=device.deviceAddress).order_by(desc(LocationUpdates.timestamp)).first()
         lcnlist.append(LocationUpdates.columns_to_dict(recentLocationUpdate))
-    print(devicelist, lcnlist)
     info = zip(devicelist,lcnlist)
     return render_template('index.html', devices = info)
 
