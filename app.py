@@ -143,7 +143,8 @@ def getList():
 def deleteAll():
     deviceAddress = request.args.get('deviceAddress')
     device = RegistrationInfo.query.filter_by(deviceAddress=deviceAddress).first();
-    RegistrationInfo.delete(device)
+    if device is not None:
+        RegistrationInfo.delete(device)
     lcnUpdates = LocationUpdates.query.filter_by(deviceAddress=deviceAddress)
     for idx,update in enumerate(lcnUpdates):
         LocationUpdates.delete(update)
