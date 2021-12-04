@@ -142,7 +142,7 @@ def getList():
 @app.route('/delete', methods=['GET'])
 def deleteAll():
     deviceAddress = request.args.get('deviceAddress')
-    device = RegistrationInfo.query.filter_by(deviceAddress=device.deviceAddress).first();
+    device = RegistrationInfo.query.filter_by(deviceAddress=deviceAddress).first();
     RegistrationInfo.delete(device)
     lcnUpdates = LocationUpdates.query.filter_by(deviceAddress=device.deviceAddress)
     for update in enumerate(lcnUpdates):
