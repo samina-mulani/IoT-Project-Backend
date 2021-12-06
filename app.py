@@ -47,7 +47,7 @@ def format_timestamp(timestamp):
 
 @app.template_filter()
 def round_float(val):
-    return format(float(val),'0.2f')
+    return format(float(val),'0.6f')
 
 @app.route('/viewRegisteredDevices', methods=['GET'])
 def getRegisteredDevices():
